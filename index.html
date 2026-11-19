@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#07090d">
+  <title>Змейка</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app">
+    <header class="hud">
+      <div>Счёт <b id="score">0</b></div>
+      <div>Рекорд <b id="best">0</b></div>
+    </header>
+
+    <div class="board" id="board">
+      <canvas id="canvas"></canvas>
+
+      <div class="overlay" id="startOverlay">
+        <h1>Змейка</h1>
+        <p>Нажми, чтобы начать</p>
+        <small>Свайпы или кнопки внизу</small>
+      </div>
+
+      <div class="overlay hidden" id="overOverlay">
+        <h1>Игра окончена</h1>
+        <p>Счёт: <b id="finalScore">0</b></p>
+        <p id="newBest" class="hidden">Новый рекорд!</p>
+        <button id="restartBtn" type="button">Играть снова</button>
+      </div>
+    </div>
+
+    <nav class="pad" aria-label="Управление">
+      <button type="button" data-dir="up" aria-label="Вверх">▲</button>
+      <button type="button" data-dir="left" aria-label="Влево">◀</button>
+      <button type="button" data-dir="down" aria-label="Вниз">▼</button>
+      <button type="button" data-dir="right" aria-label="Вправо">▶</button>
+    </nav>
+  </main>
+  <script src="game.js"></script>
+</body>
+</html>

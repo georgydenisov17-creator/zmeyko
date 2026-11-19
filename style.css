@@ -1,0 +1,103 @@
+:root {
+  --bg: #07090d;
+  --panel: #0d1219;
+  --neon: #39ff88;
+  --text: #d8e4dc;
+  --muted: #6f8279;
+}
+
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  overflow: hidden;
+  overscroll-behavior: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.app {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: max(10px, env(safe-area-inset-top)) 10px max(10px, env(safe-area-inset-bottom));
+}
+
+.hud {
+  width: 100%;
+  max-width: 560px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 15px;
+  color: var(--muted);
+}
+.hud b { color: var(--neon); font-size: 20px; margin-left: 4px; text-shadow: 0 0 8px rgba(57,255,136,.5); }
+
+/* Контейнер поля: размер задаёт game.js */
+.board {
+  position: relative;
+  flex: none;
+  border-radius: 14px;
+  background: var(--panel);
+  box-shadow: 0 0 0 1px rgba(57,255,136,.25), 0 0 28px rgba(57,255,136,.12);
+  overflow: hidden;
+}
+canvas { display: block; width: 100%; height: 100%; touch-action: none; }
+
+/* Оверлеи */
+.overlay {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 10px; text-align: center;
+  background: rgba(7,9,13,.82);
+  transition: opacity .35s ease, transform .35s ease;
+}
+.overlay.hidden { opacity: 0; pointer-events: none; transform: scale(1.04); }
+.overlay h1 { margin: 0; font-size: 34px; color: var(--neon); text-shadow: 0 0 16px rgba(57,255,136,.7); }
+.overlay p { margin: 0; font-size: 18px; }
+.overlay small { color: var(--muted); }
+#startOverlay p { animation: pulse 1.4s ease-in-out infinite; }
+@keyframes pulse { 50% { opacity: .35; } }
+p.hidden { display: none; }
+
+button#restartBtn {
+  margin-top: 6px; padding: 12px 26px;
+  font-size: 18px; font-weight: 600;
+  color: #04120a; background: var(--neon);
+  border: 0; border-radius: 12px;
+  box-shadow: 0 0 18px rgba(57,255,136,.55);
+}
+button#restartBtn:active { transform: scale(.96); }
+
+/* Экранные стрелки */
+.pad {
+  flex: 1; min-height: 0;
+  width: 100%; max-width: 340px; max-height: 190px;
+  display: grid;
+  grid-template-areas: ". up ." "left down right";
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 8px;
+}
+.pad button {
+  font-size: 22px; color: var(--neon);
+  background: var(--panel);
+  border: 1px solid rgba(57,255,136,.3);
+  border-radius: 12px;
+  touch-action: manipulation;
+}
+.pad button:active { background: rgba(57,255,136,.18); }
+.pad [data-dir="up"] { grid-area: up; }
+.pad [data-dir="left"] { grid-area: left; }
+.pad [data-dir="down"] { grid-area: down; }
+.pad [data-dir="right"] { grid-area: right; }
+
+@media (prefers-reduced-motion: reduce) {
+  .overlay, #startOverlay p { transition: none; animation: none; }
+}
